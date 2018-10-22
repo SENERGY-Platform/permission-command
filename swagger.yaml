@@ -1,0 +1,280 @@
+swagger: '2.0'
+info:
+  title: Permissions
+  termsOfService: http://swagger.io/terms/
+  description: ''
+  version: '1.0'
+  contact:
+    name: sh20xyqi
+    email: sh20xyqi@studserv.uni-leipzig.de
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+schemes:
+  - https
+
+host: api.sepl.infai.org
+
+basePath: /???
+
+produces:
+  - text/plain
+
+paths:
+  /user/{user}/{resource_kind}/{resource_id}/{right}:
+    put:
+      summary:
+        Updates the rights to a specific resource for a specific user within a kind of resources.
+      description:
+        ''
+      parameters:
+        - name: user
+          in: path
+          description: The specific user.
+          required: true
+          type: string
+        - name: resource_kind
+          in: path
+          description: The applied resource kind.
+          required: true
+          type: string
+        - name: resource_id
+          in: path
+          description: The specific resource to which the rights changes are to be applied.
+          required: true
+          type: string
+        - name: right
+          in: path
+          description: The right to be applied.
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns ok.
+          schema:
+            type: string
+            format: string
+        401:
+          description: User has no admin rights.
+          schema:
+            type: string
+            format: string
+        400:
+          description: User can not remove his own administration right.
+          schema:
+            type: string
+            format: string
+        500:
+          description: Server was unable to process the update.
+          schema:
+            type: string
+            format: string
+  /user/{user}/{resource_kind}/{resource_id}:
+    put:
+      summary:
+        Nullify the right(s) to a specific resource for a specific user within a kind of resources.
+      description:
+        ''
+      parameters:
+        - name: user
+          in: path
+          description: The specific user.
+          required: true
+          type: string
+        - name: resource_kind
+          in: path
+          description: The applied resource kind.
+          required: true
+          type: string
+        - name: resource_id
+          in: path
+          description: The specific resource to which the nullification is to be applied.
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns ok.
+          schema:
+            type: string
+            format: string
+        401:
+          description: User has no admin rights.
+          schema:
+            type: string
+            format: string
+        400:
+          description: User can not remove his own administration right.
+          schema:
+            type: string
+            format: string
+        500:
+          description: Server was unable to process the update.
+          schema:
+            type: string
+            format: string
+    delete:
+      summary:
+        Deletes the rights to a specific resource for a specific user wihtin a kind of resources.
+      description:
+        ''
+      parameters:
+        - name: user
+          in: path
+          description: The specific user.
+          required: true
+          type: string
+        - name: resource_kind
+          in: path
+          description: The applied resource kind.
+          required: true
+          type: string
+        - name: resource_id
+          in: path
+          description: The specific resource to which the nullification is to be applied.
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns ok. Rights are deleted.
+          schema:
+            type: string
+            format: string
+        401:
+          description: User has no admin rights.
+          schema:
+            type: string
+            format: string
+        400:
+          description: User can not remove his own administration right.
+          schema:
+            type: string
+            format: string
+        500:
+          description: Server was unable to process the delete.
+          schema:
+            type: string
+            format: string
+  /group/{group}/{resource_kind}/{resource_id}/{right}:
+    put:
+      summary:
+        Updates the rights to a specific resource for a specific user group within a kind of resources.
+      description:
+        ''
+      parameters:
+        - name: group
+          in: path
+          description: The specific user group.
+          required: true
+          type: string
+        - name: resource_kind
+          in: path
+          description: The applied resource kind.
+          required: true
+          type: string
+        - name: resource_id
+          in: path
+          description: The specific resource to which the rights changes are to be applied.
+          required: true
+          type: string
+        - name: right
+          in: path
+          description: The right to be applied.
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns ok.
+          schema:
+            type: string
+            format: string
+        401:
+          description: Group has no admin rights.
+          schema:
+            type: string
+            format: string
+        500:
+          description: Server was unable to prcess the update.
+          schema:
+            type: string
+            format: string
+  /group/{group}/{resource_kind}/{resource_id}/:
+    put:
+      summary:
+        Nullify the rights to a specific resource for a specific user group within a kind of resources.
+      description:
+        ''
+      parameters:
+        - name: group
+          in: path
+          description: The specific user group.
+          required: true
+          type: string
+        - name: resource_kind
+          in: path
+          description: The applied resource kind.
+          required: true
+          type: string
+        - name: resource_id
+          in: path
+          description: The specific resource to which the rights changes are to be applied.
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns ok.
+          schema:
+            type: string
+            format: string
+        401:
+          description: Group has no admin rights.
+          schema:
+            type: string
+            format: string
+        500:
+          description: Server was unable to prcess the update.
+          schema:
+            type: string
+            format: string
+    delete:
+      summary:
+        Deletes the rights to a specific resource for a specific user wihtin a kind of resources.
+      description:
+        ''
+      parameters:
+        - name: group
+          in: path
+          description: The specific group.
+          required: true
+          type: string
+        - name: resource_kind
+          in: path
+          description: The applied resource kind.
+          required: true
+          type: string
+        - name: resource_id
+          in: path
+          description: The specific resource to which the nullification is to be applied.
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns ok. Rights are deleted.
+          schema:
+            type: string
+            format: string
+        401:
+          description: Group has no admin rights.
+          schema:
+            type: string
+            format: string
+        400:
+          description: Group can not remove his own administration right.
+          schema:
+            type: string
+            format: string
+        500:
+          description: Server was unable to process the delete.
+          schema:
+            type: string
+            format: string
