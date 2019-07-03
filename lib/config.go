@@ -32,8 +32,7 @@ type ConfigStruct struct {
 	LogLevel   string
 
 	PermissionsViewUrl   string
-	AmqpUrl              string
-	AmqpReconnectTimeout int64
+	ZookeeperUrl string
 
 	PermTopic string
 

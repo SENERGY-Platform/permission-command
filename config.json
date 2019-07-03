@@ -4,8 +4,7 @@
 
 	"PermissionsViewUrl": "http://permissionsearch:8080",
 
-	"AmqpUrl": "amqp://user:pw@rabbitmq:5672/",
-	"AmqpReconnectTimeout": 10,
+	"ZookeeperUrl": "zk:2181",
 
 	"PermTopic": "permissions",
 

@@ -18,11 +18,9 @@ package lib
 
 import (
 	"log"
-
-	"encoding/json"
 )
 
-var conn *AmqpConn
+var conn *Publisher
 
 type PermCommandMsg struct {
 	Command  string `json:"command"`
@@ -35,23 +33,18 @@ type PermCommandMsg struct {
 
 func InitEventConn() {
 	var err error
-	conn, err = InitAmqpConn(Config.AmqpUrl, []string{Config.PermTopic}, Config.AmqpReconnectTimeout)
+	conn, err = NewPublisher()
 	if err != nil {
 		log.Fatal("ERROR: while initializing amqp connection", err)
 	}
 }
 
 func StopEventConn() {
-	conn.Close()
+	conn.writer.Close()
 }
 
 func sendEvent(command PermCommandMsg) error {
-	payload, err := json.Marshal(command)
-	if err != nil {
-		log.Println("ERROR: event marshaling:", err)
-		return err
-	}
-	return conn.Publish(Config.PermTopic, payload)
+	return conn.Publish(command)
 }
 
 func SetGroupRight(kind, resource, group, right string) error {

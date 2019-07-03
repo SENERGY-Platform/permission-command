@@ -23,8 +23,6 @@ import (
 	"os/signal"
 	"syscall"
 
-	"time"
-
 	"github.com/SmartEnergyPlatform/permissions/lib"
 )
 
@@ -36,8 +34,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	time.Sleep(time.Duration(lib.Config.AmqpReconnectTimeout) * time.Second)
 
 	go lib.StartApi()
 
