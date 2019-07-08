@@ -21,6 +21,10 @@ type Publisher struct {
 }
 
 func NewPublisher() (*Publisher, error) {
+	err := InitTopic(Config.ZookeeperUrl, Config.PermTopic)
+	if err != nil {
+		return nil, err
+	}
 	broker, err := GetBroker(Config.ZookeeperUrl)
 	if err != nil {
 		return nil, err
