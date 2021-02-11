@@ -106,6 +106,13 @@ func getRoutes() (router *jwt_http_router.Router) {
 		group := ps.ByName("group")
 		kind := ps.ByName("resource_kind")
 		resource := ps.ByName("resource_id")
+
+		// users may not remove admin from resource
+		if group == "admin" && !IsAdmin(jwt) {
+			http.Error(res, "only admin group may remove admin group from resource", http.StatusForbidden)
+			return
+		}
+
 		err := HasAdminRight(jwt.Impersonate, kind, resource)
 		if err != nil {
 			http.Error(res, err.Error(), http.StatusUnauthorized)
@@ -146,6 +153,11 @@ func handleUserRightPut(res http.ResponseWriter, user string, kind string, resou
 }
 
 func handleGroupRightPut(res http.ResponseWriter, group string, kind string, resource string, right string, jwt jwt_http_router.Jwt) {
+	// users may not remove admin from resource
+	if group == "admin" && !IsAdmin(jwt) && !strings.Contains(right, "a") {
+		http.Error(res, "only admin group may remove admin group from resource", http.StatusForbidden)
+		return
+	}
 	err := HasAdminRight(jwt.Impersonate, kind, resource)
 	if err != nil {
 		http.Error(res, err.Error(), http.StatusUnauthorized)
@@ -159,4 +171,17 @@ func handleGroupRightPut(res http.ResponseWriter, group string, kind string, res
 	}
 	ok := map[string]string{"status": "ok"}
 	response.To(res).Json(ok)
+}
+
+func IsAdmin(jwt jwt_http_router.Jwt) bool {
+	return contains(jwt.RealmAccess.Roles, "admin")
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }
