@@ -29,7 +29,7 @@ import (
 )
 
 func StartApi() {
-	log.Println("connect to kafka: ", Config.ZookeeperUrl)
+	log.Println("connect to kafka: ", Config.KafkaUrl)
 	InitEventConn()
 	defer StopEventConn()
 	log.Println("start server on port: ", Config.ServerPort)

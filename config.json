@@ -4,7 +4,7 @@
 
 	"PermissionsViewUrl": "http://permissionsearch:8080",
 
-	"ZookeeperUrl": "zk:2181",
+	"KafkaUrl": "kafka:9092",
 
 	"PermTopic": "permissions",
 

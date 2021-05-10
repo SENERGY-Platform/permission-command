@@ -31,8 +31,8 @@ type ConfigStruct struct {
 	ServerPort string
 	LogLevel   string
 
-	PermissionsViewUrl   string
-	ZookeeperUrl string
+	PermissionsViewUrl string
+	KafkaUrl           string
 
 	PermTopic string
 
