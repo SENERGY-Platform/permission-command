@@ -6,8 +6,5 @@
 
 	"KafkaUrl": "kafka:9092",
 
-	"PermTopic": "permissions",
-
-	"ForceUser": "false",
-	"ForceAuth": "false"
+	"PermTopic": "permissions"
 }

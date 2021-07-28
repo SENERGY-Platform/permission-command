@@ -35,10 +35,6 @@ type ConfigStruct struct {
 	KafkaUrl           string
 
 	PermTopic string
-
-	JwtPubRsa string
-	ForceUser string
-	ForceAuth string
 }
 
 type ConfigType *ConfigStruct

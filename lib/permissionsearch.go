@@ -18,19 +18,24 @@ package lib
 
 import (
 	"net/http"
+	"runtime/debug"
 
 	"net/url"
 
 	"errors"
-
-	"github.com/SmartEnergyPlatform/jwt-http-router"
 )
 
-func HasAdminRight(impersonate jwt_http_router.JwtImpersonate, kind string, id string) error {
+func HasAdminRight(impersonate string, kind string, id string) error {
 	if Config.PermissionsViewUrl == "" {
 		return nil
 	}
-	resp, err := impersonate.Get(Config.PermissionsViewUrl + "/jwt/check/" + url.QueryEscape(kind) + "/" + url.QueryEscape(id) + "/a")
+	req, err := http.NewRequest("HEAD", Config.PermissionsViewUrl + "/v3/resources/"+url.QueryEscape(kind)+"/"+url.QueryEscape(id)+"?rights=a", nil)
+	if err != nil {
+		debug.PrintStack()
+		return err
+	}
+	req.Header.Set("Authorization", impersonate)
+	resp, err := http.DefaultClient.Do(req)
 	if err == nil && resp.StatusCode != http.StatusOK {
 		err = errors.New("access denied")
 	}
