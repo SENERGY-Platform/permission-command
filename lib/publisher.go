@@ -47,7 +47,7 @@ func (this *Publisher) Publish(command PermCommandMsg) (err error) {
 	err = this.writer.WriteMessages(
 		context.Background(),
 		kafka.Message{
-			Key:   []byte(command.Kind+"_"+command.Resource),
+			Key:   []byte(command.Resource+"_"+command.User+"_"+command.Group),
 			Value: message,
 			Time:  time.Now(),
 		},
