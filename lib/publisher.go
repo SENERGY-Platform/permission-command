@@ -14,8 +14,6 @@ import (
 	"time"
 )
 
-
-
 type Publisher struct {
 	writer *kafka.Writer
 }
@@ -47,7 +45,7 @@ func (this *Publisher) Publish(command PermCommandMsg) (err error) {
 	err = this.writer.WriteMessages(
 		context.Background(),
 		kafka.Message{
-			Key:   []byte(command.Resource+"_"+command.User+"_"+command.Group),
+			Key:   []byte(command.Resource + "_" + command.User + "_" + command.Group),
 			Value: message,
 			Time:  time.Now(),
 		},
@@ -70,6 +68,9 @@ func GetKafkaWriter(broker []string, topic string, debug bool) (writer *kafka.Wr
 		Topic:       topic,
 		MaxAttempts: 10,
 		Logger:      logger,
+		Async:       false,
+		BatchSize:   1,
+		Balancer:    &kafka.Hash{},
 	}
 	return writer, err
 }
@@ -150,4 +151,3 @@ func InitTopic(bootstrapUrl string, topics ...string) (err error) {
 
 	return controllerConn.CreateTopics(topicConfigs...)
 }
-
