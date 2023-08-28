@@ -18,8 +18,8 @@ package lib
 
 import (
 	"encoding/json"
-	"github.com/SmartEnergyPlatform/permissions/lib/auth"
-	"github.com/SmartEnergyPlatform/permissions/lib/util"
+	"github.com/SENERGY-Platform/permission-command/lib/auth"
+	"github.com/SENERGY-Platform/permission-command/lib/util"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"

@@ -23,7 +23,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/SmartEnergyPlatform/permissions/lib"
+	"github.com/SENERGY-Platform/permission-command/lib"
 )
 
 func main() {
